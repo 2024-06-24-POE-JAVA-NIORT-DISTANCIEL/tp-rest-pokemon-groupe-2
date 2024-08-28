@@ -15,7 +15,7 @@ public class Dresseur {
 
     private String motDePasse;
 
-    private Integer portefeuille;
+    private Integer portefeuille = 100;
 
     public Integer getId() {
         return id;
