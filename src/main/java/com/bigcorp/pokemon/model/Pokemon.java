@@ -3,7 +3,7 @@ package com.bigcorp.pokemon.model;
 
 import jakarta.persistence.*;
 
-@Entity
+
 public class Pokemon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class Pokemon {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
