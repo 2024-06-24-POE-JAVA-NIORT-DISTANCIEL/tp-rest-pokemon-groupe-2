@@ -1,4 +1,4 @@
-package com.bigcorp.pokemon.dao;
+package com.bigcorp.pokemon.testEspeceDao;
 
 import java.util.List;
 

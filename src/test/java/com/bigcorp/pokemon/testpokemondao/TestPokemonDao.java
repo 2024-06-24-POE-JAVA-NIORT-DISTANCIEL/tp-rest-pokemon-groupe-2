@@ -1,7 +1,6 @@
 package com.bigcorp.pokemon.testpokemondao;
 
-import com.bigcorp.pokemon.dao.PokemonDao;
-import com.bigcorp.pokemon.model.Hello;
+import com.bigcorp.pokemon.testEspeceDao.PokemonDao;
 import com.bigcorp.pokemon.model.Pokemon;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
