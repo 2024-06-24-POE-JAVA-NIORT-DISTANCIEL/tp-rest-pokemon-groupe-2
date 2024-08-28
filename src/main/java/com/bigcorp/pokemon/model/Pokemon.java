@@ -2,7 +2,6 @@ package com.bigcorp.pokemon.model;
 
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Pokemon {
