@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 
 @Entity
 public class Pokemon {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -25,7 +24,7 @@ public class Pokemon {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
