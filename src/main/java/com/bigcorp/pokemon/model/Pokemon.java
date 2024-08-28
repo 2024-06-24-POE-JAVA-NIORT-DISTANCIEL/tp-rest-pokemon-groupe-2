@@ -20,7 +20,7 @@ public class Pokemon {
 
 
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
