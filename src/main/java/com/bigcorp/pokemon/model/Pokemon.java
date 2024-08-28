@@ -1,12 +1,14 @@
 package com.bigcorp.pokemon.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Pokemon {
-    private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private Long id;
+
     private String nom;
     private int niveau;
     private int xp;
@@ -23,7 +25,7 @@ public class Pokemon {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
