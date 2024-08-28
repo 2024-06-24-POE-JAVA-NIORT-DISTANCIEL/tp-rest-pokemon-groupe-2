@@ -1,10 +1,12 @@
 package com.bigcorp.pokemon.model;
 
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 @Entity
 public class Pokemon {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nom;
     private int niveau;
@@ -13,8 +15,8 @@ public class Pokemon {
     public int pv_max;
 
 
-    private Espece espece;
-    private Dresseur dresseur;
+//    private Espece espece;
+//    private Dresseur dresseur;
 
 
 
@@ -22,7 +24,7 @@ public class Pokemon {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -75,8 +77,8 @@ public class Pokemon {
                 ", xp=" + xp +
                 ", pv=" + pv +
                 ", pv_max=" + pv_max +
-                ", espece=" + espece +
-                ", dresseur=" + dresseur +
+//                ", espece=" + espece +
+//                ", dresseur=" + dresseur +
                 ')';
     }
 }

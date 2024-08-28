@@ -1,49 +1,51 @@
 package com.bigcorp.pokemon.model;
 
-import java.util.HashSet;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 
+@Entity
 public class Dresseur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    private String username;
-    private String password;
-    private int wallet = 100;
+    private String pseudonyme;
 
-    @ManyToMany
-    private Set<Item> inventory = new HashSet<>();
+    private String motDePasse;
 
-    public String getUsername() {
-        return username;
+    private Integer portefeuille;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPseudonyme() {
+        return pseudonyme;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPseudonyme(String pseudonyme) {
+        this.pseudonyme = pseudonyme;
     }
 
-    public int getWallet() {
-        return wallet;
+    public String getMotDePasse() {
+        return motDePasse;
     }
 
-    public void setWallet(int wallet) {
-        this.wallet = wallet;
+    public void setMotDePasse(String motDePasse) {
+        this.motDePasse = motDePasse;
     }
 
-    
+    public Integer getPortefeuille() {
+        return portefeuille;
+    }
 
-
-    
+    public void setPortefeuille(Integer portefeuille) {
+        this.portefeuille = portefeuille;
+    }
 }

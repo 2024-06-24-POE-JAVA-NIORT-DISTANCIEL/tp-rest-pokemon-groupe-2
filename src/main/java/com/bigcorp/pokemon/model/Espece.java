@@ -1,44 +1,63 @@
 package com.bigcorp.pokemon.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
+import java.util.Collections;
+import java.util.List;
+
+@Entity
 public class Espece {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
-    private String name;
-    private String type;
-    private int initialHp;
+    private String nom;
+    private int pointsVieInitial;
 
-    @OneToOne
-    private Attack initialAttack;
+    @Enumerated(EnumType.STRING)
+    private Type type; // Liste pour contenir les types
 
-    // Getters, Setters, Constructors
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String username) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String ) {
+    // Constructeur
+    public Espece(Long id, String nom, int pointsVieInitial, int vieInitial, Type type) {
+        this.id = id;
+        this.nom = nom;
+        this.pointsVieInitial = pointsVieInitial;
         this.type = type;
     }
 
-    public int getInitialHp() {
-        return initialHp;
+    public Espece() {
     }
 
-    public void setInitialHp(int initialHp) {
-        this.initialHp = initialHp;
-    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public int getPointsVieInitial() {
+        return pointsVieInitial;
+    }
+
+    public void setPointsVieInitial(int pointsVieInitial) {
+        this.pointsVieInitial = pointsVieInitial;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+    this.type = type;
+    }
 }
