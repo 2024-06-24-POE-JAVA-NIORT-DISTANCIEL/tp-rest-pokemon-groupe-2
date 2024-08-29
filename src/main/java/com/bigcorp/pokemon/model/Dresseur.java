@@ -1,9 +1,8 @@
 package com.bigcorp.pokemon.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Dresseur {
@@ -11,11 +10,20 @@ public class Dresseur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(unique = true)
     private String pseudonyme;
 
     private String motDePasse;
 
     private Integer portefeuille = 100;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pokemonId")
+    private List<Pokemon> equipe;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "achatId")
+    private List<Achat> inventaire;
 
     public Integer getId() {
         return id;
@@ -47,5 +55,13 @@ public class Dresseur {
 
     public void setPortefeuille(Integer portefeuille) {
         this.portefeuille = portefeuille;
+    }
+
+    public List<Pokemon> getEquipe() {
+        return equipe;
+    }
+
+    public void setEquipe(List<Pokemon> equipe) {
+        this.equipe = equipe;
     }
 }

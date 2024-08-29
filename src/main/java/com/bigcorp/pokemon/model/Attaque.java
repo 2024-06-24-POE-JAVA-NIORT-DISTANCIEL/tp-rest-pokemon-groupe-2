@@ -1,14 +1,9 @@
 package com.bigcorp.pokemon.model;
 
 import jakarta.annotation.Generated;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import java.util.List;
 
 @Entity
 public class Attaque {
@@ -20,12 +15,18 @@ public class Attaque {
     @Column(nullable = false)
     private String nom;
 
-    
-    @Column(nullable = false)
+    @OneToOne
+    @JoinColumn(name = "typeId", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Type type;
 
     @Column(nullable = false)
     private Integer pointsDegats;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "capaciteId", nullable = false)
+    private List<Capacite> capacite;
+
 
     // COnstructeurs 
     public Attaque(){
@@ -69,6 +70,14 @@ public class Attaque {
 
     public void setPointsDegats(Integer pointsDegats) {
         this.pointsDegats = pointsDegats;
+    }
+
+    public List<Capacite>  getCapacite() {
+        return capacite;
+    }
+
+    public void setCapacite(List<Capacite>  capacite) {
+        this.capacite = capacite;
     }
 
     @Override
