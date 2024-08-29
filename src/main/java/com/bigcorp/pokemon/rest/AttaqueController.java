@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-import com.bigcorp.pokemon.model.AttaquePack.Attaque;
+import com.bigcorp.pokemon.model.Attaque;
 import com.bigcorp.pokemon.service.AttaqueService;
 
 @RestController

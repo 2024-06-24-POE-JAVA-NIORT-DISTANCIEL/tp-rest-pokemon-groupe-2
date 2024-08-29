@@ -1,4 +1,4 @@
-package com.bigcorp.pokemon.testEspeceDao;
+package com.bigcorp.pokemon.dao;
 
 import com.bigcorp.pokemon.model.Espece;
 import org.springframework.data.repository.CrudRepository;

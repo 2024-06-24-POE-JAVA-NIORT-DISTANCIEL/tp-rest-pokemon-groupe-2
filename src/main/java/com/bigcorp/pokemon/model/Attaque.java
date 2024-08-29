@@ -1,6 +1,4 @@
-package com.bigcorp.pokemon.model.AttaquePack;
-
-import com.bigcorp.pokemon.model.Type;
+package com.bigcorp.pokemon.model;
 
 import jakarta.annotation.Generated;
 import jakarta.persistence.Column;

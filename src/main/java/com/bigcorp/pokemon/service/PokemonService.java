@@ -1,6 +1,6 @@
 package com.bigcorp.pokemon.service;
 
-import com.bigcorp.pokemon.testEspeceDao.PokemonDao;
+import com.bigcorp.pokemon.dao.PokemonDao;
 import com.bigcorp.pokemon.model.Pokemon;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
