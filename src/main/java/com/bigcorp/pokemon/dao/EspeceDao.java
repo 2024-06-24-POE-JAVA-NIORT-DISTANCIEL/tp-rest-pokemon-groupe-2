@@ -1,7 +1,15 @@
 package com.bigcorp.pokemon.dao;
 
 import com.bigcorp.pokemon.model.Espece;
+import com.bigcorp.pokemon.model.Pokemon;
 import org.springframework.data.repository.CrudRepository;
 
-public interface EspeceDao extends CrudRepository<Espece,Long> {
+import java.util.List;
+
+public interface EspeceDao extends CrudRepository<Espece,Integer> {
+
+    /**
+     * Recherche tous les pokemons par leur nom
+     */
+    public List<Espece> findByNom(String nom);
 }

@@ -32,7 +32,7 @@ public class EspeceRestControlleur {
 
     //Récuppération par id
     @GetMapping("/{id}")
-    public ResponseEntity<?> getEspeceById(@PathVariable Long id) {
+    public ResponseEntity<?> getEspeceById(@PathVariable Integer id) {
         Espece espece =  especeService.findById(id);
         if(espece == null){
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
@@ -44,7 +44,7 @@ public class EspeceRestControlleur {
 
     //supprimer une espèce par id
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEspece(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteEspece(@PathVariable Integer id) {
         especeService.delete(id);
         return ResponseEntity.noContent().build();
     }

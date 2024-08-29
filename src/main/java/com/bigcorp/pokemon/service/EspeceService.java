@@ -26,7 +26,7 @@ public class EspeceService {
         return (List<Espece>) especeDao.findAll();
     }
 
-    public Espece findById(Long id){
+    public Espece findById(Integer id){
         Optional<Espece> optionalEspece = this.especeDao.findById(id);
         if(optionalEspece.isEmpty()){
             return null;
@@ -35,7 +35,7 @@ public class EspeceService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void delete(Integer id) {
         especeDao.deleteById(id);
     }
 

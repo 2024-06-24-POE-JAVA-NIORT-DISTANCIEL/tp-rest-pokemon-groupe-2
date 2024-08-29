@@ -1,9 +1,8 @@
 package com.bigcorp.pokemon.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Objet {
@@ -16,6 +15,10 @@ public class Objet {
     private Integer cout;
 
     private String type;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "achatId")
+    private List<Achat> achats;
 
     public Integer getId() {
         return id;
@@ -47,5 +50,13 @@ public class Objet {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public List<Achat> getAchats() {
+        return achats;
+    }
+
+    public void setAchats(List<Achat> achats) {
+        this.achats = achats;
     }
 }

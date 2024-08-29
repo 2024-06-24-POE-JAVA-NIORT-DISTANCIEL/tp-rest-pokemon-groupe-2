@@ -3,6 +3,8 @@ package com.bigcorp.pokemon.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Pokemon {
     @Id
@@ -14,11 +16,17 @@ public class Pokemon {
     private int pv;
     public int pv_max;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "especeId")
+    private Espece espece;
 
-//    private Espece espece;
-//    private Dresseur dresseur;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dresseurId")
+    private Dresseur dresseur;
 
-
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "capaciteId")
+    private List<Capacite> capacites;
 
     public Integer getId() {
         return id;
@@ -68,6 +76,30 @@ public class Pokemon {
         this.pv_max = pv_max;
     }
 
+    public Espece getEspece() {
+        return espece;
+    }
+
+    public void setEspece(Espece espece) {
+        this.espece = espece;
+    }
+
+    public Dresseur getDresseur() {
+        return dresseur;
+    }
+
+    public void setDresseur(Dresseur dresseur) {
+        this.dresseur = dresseur;
+    }
+
+    public List<Capacite> getCapacites() {
+        return capacites;
+    }
+
+    public void setCapacites(List<Capacite> capacites) {
+        this.capacites = capacites;
+    }
+
     @Override
     public String toString() {
         return "Pokemon(" +
@@ -77,8 +109,8 @@ public class Pokemon {
                 ", xp=" + xp +
                 ", pv=" + pv +
                 ", pv_max=" + pv_max +
-//                ", espece=" + espece +
-//                ", dresseur=" + dresseur +
+                ", espece=" + espece +
+                ", dresseur=" + dresseur +
                 ')';
     }
 }
