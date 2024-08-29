@@ -38,6 +38,7 @@ public class TestPokemonDao {
         Assertions.assertFalse(result.isEmpty());
         System.out.println(result);
     }
+
     @Test
     public void testFindByNomContainingIgnoreCase() {
         // Créer et sauvegarder quelques Pokemon avec des noms différents

@@ -11,8 +11,8 @@ public class Pokemon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nom;
-    private Integer niveau=1;//comment fait default 1
-    private int xp=0;
+    private Integer niveau;//comment fait default 1
+    private int xp;
     private int pv;
     public int pv_max;
 
