@@ -18,9 +18,9 @@ public class Espece {
     @Enumerated(EnumType.STRING)
     private Type type; // Liste pour contenir les types
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pokemonId")
-    private List<Pokemon> pokemons;
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "pokemonId")
+//    private List<Pokemon> pokemons;
 
 
     // Constructeur
@@ -66,11 +66,11 @@ public class Espece {
         this.type = type;
     }
 
-    public List<Pokemon> getPokemons() {
-        return pokemons;
-    }
-
-    public void setPokemons(List<Pokemon> pokemons) {
-        this.pokemons = pokemons;
-    }
+//    public List<Pokemon> getPokemons() {
+//        return pokemons;
+//    }
+//
+//    public void setPokemons(List<Pokemon> pokemons) {
+//        this.pokemons = pokemons;
+//    }
 }

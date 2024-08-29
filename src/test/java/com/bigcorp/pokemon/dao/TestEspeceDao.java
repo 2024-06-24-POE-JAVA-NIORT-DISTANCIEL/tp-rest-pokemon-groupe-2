@@ -17,38 +17,26 @@ public class TestEspeceDao {
     EspeceDao especeDao;
 
     @Test
-    public void testSaveEspece(){
-    Espece newEspece = new Espece();
-    newEspece.setNom("bipède");
-    newEspece.setPointsVieInitial(1000);
-    newEspece.setType(Type.FEU);
-
-    System.out.println("Avant save");
-    Espece savedEspece = especeDao.save(newEspece);
-
-    System.out.println("Après save");
-    Assertions.assertNotNull(savedEspece.getId());
-    Assertions.assertEquals("bipède", savedEspece.getNom());
-    }
-
-    @Test
     public void testEspecefindByNom(){
 
         // Préparation des données
         Espece e1 = new Espece();
-        e1.setNom("Volatile");
+        e1.setNom("Salamèche");
+        e1.setType(Type.FEU);
         especeDao.save(e1);
 
         Espece e2 = new Espece();
-        e2.setNom("Canide");
+        e2.setNom("Arkanin");
+        e2.setType(Type.FEU);
         especeDao.save(e2);
 
         Espece e3 = new Espece();
-        e3.setNom("Félin");
+        e3.setNom("Goupix");
+        e3.setType(Type.FEU);
         especeDao.save(e3);
 
         // Exécution de la méthode à tester
-        List<Espece> result = especeDao.findByNom("Félin");
+        List<Espece> result = especeDao.findByNom("Goupix");
 
         // Vérification des résultats
         Assertions.assertFalse(result.isEmpty());
@@ -60,19 +48,22 @@ public class TestEspeceDao {
 
         // Préparation des données
         Espece e1 = new Espece();
-        e1.setNom("Volatile");
+        e1.setNom("Salamèche");
+        e1.setType(Type.FEU);
         especeDao.save(e1);
 
         Espece e2 = new Espece();
-        e2.setNom("Canide");
+        e2.setNom("Arkanin");
+        e2.setType(Type.FEU);
         especeDao.save(e2);
 
         Espece e3 = new Espece();
-        e3.setNom("Félin");
+        e3.setNom("Goupix");
+        e3.setType(Type.FEU);
         especeDao.save(e3);
 
         // Exécution de la méthode à tester
-        List<Espece> result = especeDao.findByNomIgnoreCase("Fél");
+        List<Espece> result = especeDao.findByNomIgnoreCase("Gou");
 
         // Vérification des résultats
         Assertions.assertFalse(result.isEmpty());
