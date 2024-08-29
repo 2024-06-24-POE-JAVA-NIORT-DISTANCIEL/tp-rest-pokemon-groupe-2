@@ -2,7 +2,6 @@ package com.bigcorp.pokemon.model;
 
 import jakarta.persistence.*;
 
-import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -15,8 +14,7 @@ public class Espece {
     private String nom;
     private int pointsVieInitial;
 
-    @OneToOne
-    @JoinColumn(name = "typeId", nullable = false)
+    @Column(name = "typeId", nullable = false)
     @Enumerated(EnumType.STRING)
     private Type type; // Liste pour contenir les types
 

@@ -1,6 +1,5 @@
 package com.bigcorp.pokemon.model;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,8 +14,7 @@ public class Attaque {
     @Column(nullable = false)
     private String nom;
 
-    @OneToOne
-    @JoinColumn(name = "typeId", nullable = false)
+    @Column(name = "typeId", nullable = false)
     @Enumerated(EnumType.STRING)
     private Type type;
 
