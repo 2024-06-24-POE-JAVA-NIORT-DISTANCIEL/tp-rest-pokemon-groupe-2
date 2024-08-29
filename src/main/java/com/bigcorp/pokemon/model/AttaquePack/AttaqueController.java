@@ -24,14 +24,14 @@ public class AttaqueController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Attaque> getAttaqueById(@PathVariable Integer id) {
+    public <T> ResponseEntity<Attaque> getAttaqueById(@PathVariable Integer id) {
 
         Optional<Attaque> attaqueById = attaqueService.getAttaqueById(id);
         if(attaqueById.isPresent()){
             return ResponseEntity.status(HttpStatus.OK)
                 .body(attaqueById.get());
         } else {
-            return (ResponseEntity<Attaque>) ResponseEntity.status(HttpStatus.NOT_FOUND).body((T) "Attaque not found");
+            return ResponseEntity<Attaque> ResponseEntity.status(HttpStatus.NOT_FOUND).body((T) "Attaque not found");
         }
     }
 
