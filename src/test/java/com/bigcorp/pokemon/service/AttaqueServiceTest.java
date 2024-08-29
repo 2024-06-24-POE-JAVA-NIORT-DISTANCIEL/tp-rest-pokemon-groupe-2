@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.bigcorp.pokemon.model.AttaquePack.Attaque;
 import com.bigcorp.pokemon.service.AttaqueService;
+import com.bigcorp.pokemon.model.Attaque;
 import com.bigcorp.pokemon.model.Type;
 
 import static org.junit.jupiter.api.Assertions.*;
