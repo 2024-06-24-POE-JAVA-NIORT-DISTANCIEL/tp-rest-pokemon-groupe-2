@@ -11,8 +11,8 @@ public class Pokemon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nom;
-    private int niveau;
-    private int xp;
+    private Integer niveau=1;//comment fait default 1
+    private int xp=0;
     private int pv;
     public int pv_max;
 
@@ -44,11 +44,11 @@ public class Pokemon {
         this.nom = nom;
     }
 
-    public int getNiveau() {
+    public Integer getNiveau() {
         return niveau;
     }
 
-    public void setNiveau(int niveau) {
+    public void setNiveau(Integer niveau) {
         this.niveau = niveau;
     }
 
