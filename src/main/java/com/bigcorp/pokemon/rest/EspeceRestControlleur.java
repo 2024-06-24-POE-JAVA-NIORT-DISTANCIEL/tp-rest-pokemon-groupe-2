@@ -1,4 +1,4 @@
-package com.bigcorp.pokemon.rest.controlleur;
+package com.bigcorp.pokemon.rest;
 
 import com.bigcorp.pokemon.model.Espece;
 import com.bigcorp.pokemon.model.Pokemon;
@@ -31,14 +31,14 @@ public class EspeceRestControlleur {
     }
 
     //Récuppération par id
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Espece> getEspeceById(@PathVariable Long id) {
-//        Espece espece =  especeService.findById(id);
-//        if(espece == null){
-//            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
-//                    .body("Vous ne devez pas specifier l'ID de la Person, c'est la base qui va le créer.");
-//        }
-//        return ResponseEntity.ofNullable(espece);}
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getEspeceById(@PathVariable Long id) {
+        Espece espece =  especeService.findById(id);
+        if(espece == null){
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+                    .body("L'ID de cette Espece n'est pas trouvable.");
+        }
+        return ResponseEntity.ofNullable(espece);}
 
 
 

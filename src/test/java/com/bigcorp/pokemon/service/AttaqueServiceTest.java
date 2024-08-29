@@ -1,10 +1,12 @@
-package com.bigcorp.pokemon;
+package com.bigcorp.pokemon.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.bigcorp.pokemon.model.AttaquePack.AttaqueService;
+import com.bigcorp.pokemon.model.AttaquePack.Attaque;
+import com.bigcorp.pokemon.service.AttaqueService;
+import com.bigcorp.pokemon.model.Type;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,8 +21,8 @@ public class AttaqueServiceTest {
         Attaque attaque = new Attaque("Lance-Flammes", Type.FEU, 90);
         Attaque createAttaque = attaqueService.creatAttaque(attaque);
 
-        assertNotNull(createdAttaque.getId());
-        assertEquals("Lance-Flammes", createdAttaque.getNom());
+        assertNotNull(createAttaque.getId());
+        assertEquals("Lance-Flammes", createAttaque.getNom());
     }
 
 }

@@ -1,4 +1,4 @@
-package com.bigcorp.pokemon.model.AttaquePack;
+package com.bigcorp.pokemon.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-import com.sun.net.httpserver.HttpServer;
+import com.bigcorp.pokemon.model.AttaquePack.Attaque;
+import com.bigcorp.pokemon.service.AttaqueService;
 
 @RestController
 @RequestMapping("/attaques")
@@ -24,14 +25,14 @@ public class AttaqueController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Attaque> getAttaqueById(@PathVariable Integer id) {
+    public ResponseEntity<?> getAttaqueById(@PathVariable Integer id) {
 
         Optional<Attaque> attaqueById = attaqueService.getAttaqueById(id);
         if(attaqueById.isPresent()){
             return ResponseEntity.status(HttpStatus.OK)
                 .body(attaqueById.get());
         } else {
-            return (ResponseEntity<Attaque>) ResponseEntity.status(HttpStatus.NOT_FOUND).body((T) "Attaque not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Attaque not found");
         }
     }
 
@@ -43,7 +44,7 @@ public class AttaqueController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAttaque(@PathVariable Integer id) {
         attaqueService.deleteAttaque(id);
-        return new ResponseEntity<>(HttpStatus.NOT_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 

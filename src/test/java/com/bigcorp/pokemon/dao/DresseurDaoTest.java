@@ -1,4 +1,4 @@
-package com.bigcorp.pokemon;
+package com.bigcorp.pokemon.dao;
 
 import java.util.Optional;
 import java.util.List;
