@@ -38,3 +38,4 @@ public class DiscussionPokemonService {
 
         return message + punctuation;
     }
+}
