@@ -3,6 +3,7 @@ package com.bigcorp.pokemon.dao;
 import com.bigcorp.pokemon.model.Pokemon;
 import com.bigcorp.pokemon.resources.ConfigTests;
 
+import com.bigcorp.pokemon.testEspeceDao.PokemonDao;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
