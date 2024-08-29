@@ -1,7 +1,10 @@
-package com.bigcorp.pokemon.model.AttaquePack;
+package com.bigcorp.pokemon.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.bigcorp.pokemon.model.AttaquePack.Attaque;
+import com.bigcorp.pokemon.model.AttaquePack.AttaqueRepository;
 
 import java.util.List;
 import java.util.Optional;
