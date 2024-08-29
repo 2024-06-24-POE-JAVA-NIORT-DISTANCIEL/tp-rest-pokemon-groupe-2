@@ -11,9 +11,9 @@ public class Pokemon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nom;
-    private int niveau;
+    private Integer niveau;//comment fait default 1
     private int xp;
-    private int c;
+    private int pv;
     public int pv_max;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -44,11 +44,11 @@ public class Pokemon {
         this.nom = nom;
     }
 
-    public int getNiveau() {
+    public Integer getNiveau() {
         return niveau;
     }
 
-    public void setNiveau(int niveau) {
+    public void setNiveau(Integer niveau) {
         this.niveau = niveau;
     }
 

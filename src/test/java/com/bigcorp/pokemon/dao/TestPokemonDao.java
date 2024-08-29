@@ -56,4 +56,44 @@ public class TestPokemonDao {
 
         Assertions.assertFalse(pokemons.isEmpty());
     }
+
+    @Test
+    public void  testfindByNomContainingIgnoreCaseOrderByNomAsc (){
+
+        // Ajouter quelques Pokémons pour le test
+        Pokemon pikachu = new Pokemon();
+        pikachu.setNom("Pikachu");
+        pikachu.setNiveau(5);
+        pikachu.setXp(100);
+        pikachu.setPv(35);
+        pikachu.setPv_max(35);
+        pokemonDao.save(pikachu);
+
+        Pokemon raichu = new Pokemon();
+        raichu.setNom("Raichu");
+        raichu.setNiveau(10);
+        raichu.setXp(250);
+        raichu.setPv(60);
+        raichu.setPv_max(60);
+        pokemonDao.save(raichu);
+
+        Pokemon bulbasaur = new Pokemon();
+        bulbasaur.setNom("Bulbasaur");
+        bulbasaur.setNiveau(8);
+        bulbasaur.setXp(180);
+        bulbasaur.setPv(45);
+        bulbasaur.setPv_max(45);
+        pokemonDao.save(bulbasaur);
+
+
+        List<Pokemon> pokemons = pokemonDao.findByNomContainingIgnoreCaseOrderByNomAsc("chu");
+
+        // Vérifier que la liste contient deux Pokémons
+        Assertions.assertEquals(2, pokemons.size());
+        System.out.println(pokemons);
+
+        // Vérifier que les résultats sont triés par nom
+        Assertions.assertEquals("Pikachu", pokemons.get(0).getNom());
+       Assertions.assertEquals("Raichu", pokemons.get(1).getNom());
+    }
 }
