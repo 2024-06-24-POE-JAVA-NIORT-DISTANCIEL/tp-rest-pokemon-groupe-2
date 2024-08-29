@@ -2,6 +2,7 @@ package com.bigcorp.pokemon.model;
 
 import jakarta.persistence.*;
 
+@Entity
 public class Achat {
 
     @Id
