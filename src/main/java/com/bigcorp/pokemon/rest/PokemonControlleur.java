@@ -6,6 +6,7 @@ import com.bigcorp.pokemon.model.Pokemon;
 import com.bigcorp.pokemon.service.DiscussionPokemonService;
 import com.bigcorp.pokemon.service.EspeceService;
 import com.bigcorp.pokemon.service.PokemonService;
+import com.bigcorp.pokemon.service.SoinPokemonService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,9 @@ public class PokemonControlleur {
 
     @Autowired
     EspeceService especeService;
+
+    @Autowired
+    SoinPokemonService soinPokemonService;
 
     @PostMapping
     public ResponseEntity<?> createPokemon(@RequestBody Pokemon pokemon) {
@@ -109,10 +113,15 @@ public class PokemonControlleur {
         String message = discussionPokemonService.faireParlerPokemon(id);
         if (message.startsWith("Le Pokémon avec l'identifiant")) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
-        
         }
         
         return ResponseEntity.ok(message);
     }
 
+    // Endpoint pour soigner un Pokémon via son ID
+    @PutMapping("/{id}/soin")
+    public ResponseEntity<String> soinPokemon(@PathVariable Integer id) {
+        String result = soinPokemonService.soignerPokemon(id);
+        return ResponseEntity.ok(result);
+    }
 }
