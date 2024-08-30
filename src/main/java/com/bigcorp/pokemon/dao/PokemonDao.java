@@ -7,10 +7,6 @@ import java.util.List;
 
 public interface PokemonDao extends CrudRepository<Pokemon,Integer> {
 
-
-
-
-
     /**
      * Recherche tous les pokemons par leur nom
      */
