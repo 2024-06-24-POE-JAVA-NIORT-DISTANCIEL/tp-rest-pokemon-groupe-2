@@ -1,6 +1,7 @@
 package com.bigcorp.pokemon.rest;
 
 import com.bigcorp.pokemon.model.Pokemon;
+import com.bigcorp.pokemon.service.DiscussionPokemonService;
 import com.bigcorp.pokemon.service.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,9 @@ public class PokemonController {
 
     @Autowired
     PokemonService pokemonService;
+
+    @Autowired
+    DiscussionPokemonService discussionPokemonService;
 
     // Créer un nouveau Pokémon
 //    @PostMapping
@@ -73,6 +77,16 @@ public class PokemonController {
 
         pokemonService.delete(id);
         return ResponseEntity.ok("Pokemon supprimé");
+    }
+
+    //Faire parler un pokémon
+    @GetMapping("/{id}/speak")
+    public ResponseEntity<String> makePokemonSpeak(@PathVariable Integer id) {
+        String message = discussionPokemonService.faireParlerPokemon(id);
+        if (message.startsWith("Le Pokémon avec l'identifiant")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }
+        return ResponseEntity.ok(message);
     }
 
 }
