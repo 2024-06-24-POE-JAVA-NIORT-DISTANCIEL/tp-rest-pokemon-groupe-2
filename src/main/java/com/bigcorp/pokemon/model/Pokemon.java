@@ -13,7 +13,7 @@ public class Pokemon {
     private String nom;
     private int niveau;
     private int xp;
-    private int c;
+    private int pv;
     public int pv_max;
 
     @ManyToOne(fetch = FetchType.LAZY)
