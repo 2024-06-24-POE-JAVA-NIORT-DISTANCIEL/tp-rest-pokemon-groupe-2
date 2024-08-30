@@ -2,6 +2,7 @@ package com.bigcorp.pokemon.model;
 
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
 
