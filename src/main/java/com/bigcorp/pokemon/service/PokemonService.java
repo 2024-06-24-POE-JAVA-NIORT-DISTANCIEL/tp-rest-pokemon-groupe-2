@@ -15,7 +15,6 @@ public class PokemonService {
     @Autowired
     PokemonDao pokemonDao;
 
-
     @Transactional
     public Pokemon save(Pokemon pokemon){
         Pokemon savedPokemon = this.pokemonDao.save(pokemon);
@@ -34,12 +33,6 @@ public class PokemonService {
         return optionalPokemon.orElse(null);
     }
 
-
-
-
-
-
-
     @Transactional
     public void delete(Integer id) {
        pokemonDao.deleteById(id);
@@ -48,10 +41,5 @@ public class PokemonService {
     public List<Pokemon> findAll() {
         return pokemonDao.findAll();
     }
-
-
-
-
-
 
 }
