@@ -17,9 +17,6 @@ public class PokemonController {
     @Autowired
     PokemonService pokemonService;
 
-
-
-
     // Créer un nouveau Pokémon
     @PostMapping
     public ResponseEntity<?> createPokemon(@RequestBody Pokemon pokemon) {
@@ -30,13 +27,11 @@ public class PokemonController {
 
         }
 
-
         // Sauvegarde du Pokémon en utilisant le service
         Pokemon createdPokemon = pokemonService.save(pokemon);
 
         // Retourner une réponse HTTP 201 CREATED avec le Pokémon créé
         return new ResponseEntity<>(createdPokemon, HttpStatus.CREATED);
-
 
        }
 
@@ -85,6 +80,5 @@ public class PokemonController {
         pokemonService.delete(id);
         return ResponseEntity.ok("Pokemon supprimé");
     }
-
 
 }
