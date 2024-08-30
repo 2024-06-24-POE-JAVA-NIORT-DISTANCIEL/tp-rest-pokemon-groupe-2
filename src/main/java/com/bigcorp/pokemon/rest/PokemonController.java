@@ -3,6 +3,7 @@ package com.bigcorp.pokemon.rest;
 import com.bigcorp.pokemon.model.Pokemon;
 import com.bigcorp.pokemon.service.DiscussionPokemonService;
 import com.bigcorp.pokemon.service.PokemonService;
+import com.bigcorp.pokemon.service.SoinPokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,9 @@ public class PokemonController {
 
     @Autowired
     DiscussionPokemonService discussionPokemonService;
+
+    @Autowired
+    SoinPokemonService soinPokemonService;
 
     // Créer un nouveau Pokémon
 //    @PostMapping
@@ -87,6 +91,13 @@ public class PokemonController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
         }
         return ResponseEntity.ok(message);
+    }
+
+    // Endpoint pour soigner un Pokémon via son ID
+    @PutMapping("/{id}/soin")
+    public ResponseEntity<String> soinPokemon(@PathVariable Integer id) {
+        String result = soinPokemonService.soignerPokemon(id);
+        return ResponseEntity.ok(result);
     }
 
 }
