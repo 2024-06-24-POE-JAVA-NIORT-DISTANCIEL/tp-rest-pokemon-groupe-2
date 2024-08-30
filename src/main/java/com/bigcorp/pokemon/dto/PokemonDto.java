@@ -1,32 +1,28 @@
-package com.bigcorp.pokemon.model;
-
-
-import jakarta.persistence.*;
+package com.bigcorp.pokemon.dto;
 
 import java.util.List;
 
-@Entity
-public class Pokemon {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+import com.bigcorp.pokemon.model.Capacite;
+import com.bigcorp.pokemon.model.Dresseur;
+import com.bigcorp.pokemon.model.Espece;
+
+public class PokemonDto {
     private Integer id;
 
     private String nom;
-    private Integer niveau;//comment fait default 1
+
+    private Integer niveau;
+
     private Integer xp;
+
     private Integer pv;
+
     public int pv_max;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "especeId")
     private Espece espece;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dresseurId")
     private Dresseur dresseur;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "capaciteId")
     private List<Capacite> capacites;
 
     public Integer getId() {
@@ -99,19 +95,5 @@ public class Pokemon {
 
     public void setCapacites(List<Capacite> capacites) {
         this.capacites = capacites;
-    }
-
-    @Override
-    public String toString() {
-        return "Pokemon(" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", niveau=" + niveau +
-                ", xp=" + xp +
-                ", pv=" + pv +
-                ", pv_max=" + pv_max +
-                ", espece=" + espece +
-                ", dresseur=" + dresseur +
-                ')';
     }
 }
