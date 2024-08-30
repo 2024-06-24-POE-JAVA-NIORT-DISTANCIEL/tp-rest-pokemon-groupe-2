@@ -31,7 +31,7 @@ public class ObjetDaoTest {
     }
 
     @Test
-    public void testFindByCoutBetweenOptionnalMinAndMax() {
+    public void testFindByCoutBetweenMinAndMax() {
         Objet superPotion = new Objet();
         superPotion.setNom("Super potion");
         superPotion.setCout(250);
@@ -55,5 +55,33 @@ public class ObjetDaoTest {
 
         Assertions.assertFalse(objetsCherInDb.isEmpty());
         Assertions.assertEquals(2, objetsCherInDb.size());
+    }
+    
+    @Test
+    public void testFindByCoutBetweenOptionnalMinAndMax() {
+        Objet superPotion = new Objet();
+        superPotion.setNom("Super potion");
+        superPotion.setCout(250);
+        superPotion.setType("Sante");
+
+        Objet guerison = new Objet();
+        guerison.setNom("Guerison");
+        guerison.setCout(3000);
+        guerison.setType("Sante");
+
+        Objet ppPlus = new Objet();
+        ppPlus.setNom("PP plus");
+        ppPlus.setCout(12000);
+        ppPlus.setType("Combat");
+
+        objetDao.save(superPotion);
+        objetDao.save(guerison);
+        objetDao.save(ppPlus);
+
+        List<Objet> objetsCherInDb = objetDao.findByCoutBetween(null, null);
+        List<Objet> tousLesObjets = (List<Objet>) objetDao.findAll();
+
+        Assertions.assertFalse(objetsCherInDb.isEmpty());
+        Assertions.assertEquals(tousLesObjets.size(), objetsCherInDb.size());
     }
 }

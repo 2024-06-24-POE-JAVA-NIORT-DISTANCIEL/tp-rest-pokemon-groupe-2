@@ -63,7 +63,7 @@ public class TestEspeceDao {
         especeDao.save(e3);
 
         // Exécution de la méthode à tester
-        List<Espece> result = especeDao.findByNomIgnoreCase("Gou");
+        List<Espece> result = especeDao.findByNomIgnoreCase("GouPiX");
 
         // Vérification des résultats
         Assertions.assertFalse(result.isEmpty());
