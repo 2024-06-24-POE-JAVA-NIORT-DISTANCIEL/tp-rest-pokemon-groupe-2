@@ -21,6 +21,13 @@ public class PokemonService {
         return savedPokemon;
     }
 
+    public Pokemon createPokemon(Pokemon pokemon) {
+        pokemon.setNiveau(1); // Définit le niveau à 1
+        pokemon.setXp(0); // Définit les points d'expérience à 0
+        pokemon.setPv(pokemon.getPv_max()); // Points de vie actuels = max
+        return pokemonDao.save(pokemon);
+    }
+
     public Pokemon findById(Integer id){
         Optional<Pokemon> optionalPokemon = this.pokemonDao.findById(id);
         return optionalPokemon.orElse(null);

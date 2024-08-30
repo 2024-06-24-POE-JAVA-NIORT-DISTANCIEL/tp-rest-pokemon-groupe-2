@@ -1,6 +1,5 @@
 package com.bigcorp.pokemon.rest;
 
-import com.bigcorp.pokemon.model.Espece;
 import com.bigcorp.pokemon.model.Pokemon;
 import com.bigcorp.pokemon.service.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,22 +17,17 @@ public class PokemonController {
     PokemonService pokemonService;
 
     // Créer un nouveau Pokémon
+//    @PostMapping
+//    public ResponseEntity<Pokemon> createPokemon(@RequestBody Pokemon pokemon) {
+//
+//        Pokemon createdPokemon = pokemonService.save(pokemon);
+//        return new ResponseEntity<>(createdPokemon, HttpStatus.CREATED);
+//    }
     @PostMapping
-    public ResponseEntity<?> createPokemon(@RequestBody Pokemon pokemon) {
-        if(pokemon.getNiveau()!=null){
-
-             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                     .body("vous ne pouvez pas specifié le niveau de pokemon");
-
-        }
-
-        // Sauvegarde du Pokémon en utilisant le service
-        Pokemon createdPokemon = pokemonService.save(pokemon);
-
-        // Retourner une réponse HTTP 201 CREATED avec le Pokémon créé
+    public ResponseEntity<Pokemon> createPokemon(@RequestBody Pokemon pokemon) {
+        Pokemon createdPokemon = pokemonService.createPokemon(pokemon);
         return new ResponseEntity<>(createdPokemon, HttpStatus.CREATED);
-
-       }
+    }
 
     // Récupérer un Pokémon par son ID
     @GetMapping("/{id}")
