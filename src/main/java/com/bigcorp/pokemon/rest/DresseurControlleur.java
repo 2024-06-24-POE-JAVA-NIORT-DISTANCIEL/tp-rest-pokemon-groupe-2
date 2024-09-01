@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bigcorp.pokemon.dto.DresseurDto;
 import com.bigcorp.pokemon.model.Dresseur;
 import com.bigcorp.pokemon.service.DresseurService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +34,7 @@ public class DresseurControlleur {
 
     @GetMapping(VERIFY_ID)
     public ResponseEntity<?> getDresseurById(@PathVariable Integer id) {
-        Dresseur dresseurInDb = dresseurService.getById(id);
+        DresseurDto dresseurInDb = dresseurService.getById(id);
 
         if(dresseurInDb == null){
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
@@ -45,8 +46,8 @@ public class DresseurControlleur {
     }
 
     @GetMapping("/{pseudoPart:[a-zA-Z]*}")
-    public List<Dresseur> getDresseursByPseudonymePart(@PathVariable String pseudoPart) {
-        List<Dresseur> dresseursByPseudonymePart = dresseurService.getDresseursByUsernamePart(pseudoPart);
+    public List<DresseurDto> getDresseursByPseudonymePart(@PathVariable String pseudoPart) {
+        List<DresseurDto> dresseursByPseudonymePart = dresseurService.getDresseursByUsernamePart(pseudoPart);
         return dresseursByPseudonymePart;
     }
 
@@ -62,7 +63,7 @@ public class DresseurControlleur {
                 .body("Vous ne pouvez pas spécifier le montant du portefeuille du dresseur. Par défaut il doit être initialisé à 100.");
         }
 
-        Dresseur dresseurInDb = dresseurService.save(dresseur);
+        DresseurDto dresseurInDb = dresseurService.save(dresseur);
 
         return ResponseEntity.status(HttpStatus.OK)
             .body(dresseurInDb);
@@ -71,7 +72,7 @@ public class DresseurControlleur {
     @DeleteMapping(VERIFY_ID)
     public ResponseEntity<?> deleteDresseurById(@PathVariable Integer id) {
         // ! Pensez à rajouter la suppression des instances des objets du dresseur dans la table Achat
-        Dresseur dresseurInDb = dresseurService.getById(id);
+        DresseurDto dresseurInDb = dresseurService.getById(id);
 
         // Test si la liste des pokemons (ici nous avons décider d'appeller la variable équipe) est vide
         // Le ! inverse la condition. On regarde donc ici si la condition est fausse

@@ -1,28 +1,21 @@
-package com.bigcorp.pokemon.model;
-
-import jakarta.persistence.*;
+package com.bigcorp.pokemon.dto;
 
 import java.util.List;
 
-@Entity
-public class Dresseur {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+import com.bigcorp.pokemon.model.Achat;
+import com.bigcorp.pokemon.model.Pokemon;
+
+public class DresseurDto {
     private Integer id;
 
-    @Column(unique = true)
     private String pseudonyme;
 
     private String motDePasse;
 
-    private Integer portefeuille = 100;
+    private Integer portefeuille;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pokemonId")
     private List<Pokemon> equipe;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "achatId")
     private List<Achat> inventaire;
 
     public Integer getId() {
@@ -72,4 +65,6 @@ public class Dresseur {
     public void setInventaire(List<Achat> inventaire) {
         this.inventaire = inventaire;
     }
+
+    
 }

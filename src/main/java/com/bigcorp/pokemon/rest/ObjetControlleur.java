@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bigcorp.pokemon.dto.ObjetDto;
 import com.bigcorp.pokemon.model.Objet;
 import com.bigcorp.pokemon.service.ObjetService;
 
@@ -33,7 +34,7 @@ public class ObjetControlleur {
 
     @GetMapping(VERIFY_ID)
     public ResponseEntity<?> getObjetById(@PathVariable Integer id) {
-        Objet objetInDb = objetService.findById(id);
+        ObjetDto objetInDb = objetService.findById(id);
 
         if(objetInDb == null){
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
@@ -45,16 +46,16 @@ public class ObjetControlleur {
     }
 
     @GetMapping("/{min}/{max}")
-    public List<Objet> getObjetBetweenMinAndMax(@PathVariable Integer min, @PathVariable Integer max) {
-        List<Objet> objetsBetweenMinAndMax = objetService.findBetweenMinAndMax(min, max);
+    public List<ObjetDto> getObjetBetweenMinAndMax(@PathVariable Integer min, @PathVariable Integer max) {
+        List<ObjetDto> objetsBetweenMinAndMax = objetService.findBetweenMinAndMax(min, max);
 
         return objetsBetweenMinAndMax;
     }
     
     
     @PostMapping
-    public Objet addObjet(@RequestBody Objet objet) {
-        Objet objetInDb = objetService.save(objet);
+    public ObjetDto addObjet(@RequestBody Objet objet) {
+        ObjetDto objetInDb = objetService.save(objet);
 
         if (objetInDb == null) {
             return null;
@@ -78,7 +79,7 @@ public class ObjetControlleur {
 
         objetService.delete(id);
 
-        Objet objetInDb = objetService.findById(id);
+        ObjetDto objetInDb = objetService.findById(id);
 
         if (objetInDb != null) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
