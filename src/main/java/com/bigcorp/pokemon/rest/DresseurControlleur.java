@@ -1,5 +1,7 @@
 package com.bigcorp.pokemon.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +32,7 @@ public class DresseurControlleur {
     private final static String VERIFY_ID = "/{id:[0-9]*}";
 
     @GetMapping(VERIFY_ID)
-    public ResponseEntity<?> getObjetById(@PathVariable Integer id) {
+    public ResponseEntity<?> getDresseurById(@PathVariable Integer id) {
         Dresseur dresseurInDb = dresseurService.getById(id);
 
         if(dresseurInDb == null){
@@ -40,6 +42,12 @@ public class DresseurControlleur {
 
         return ResponseEntity.status(HttpStatus.OK)
             .body(dresseurInDb);
+    }
+
+    @GetMapping("/{pseudoPart:[a-zA-Z]*}")
+    public List<Dresseur> getDresseursByPseudonymePart(@PathVariable String pseudoPart) {
+        List<Dresseur> dresseursByPseudonymePart = dresseurService.getDresseursByUsernamePart(pseudoPart);
+        return dresseursByPseudonymePart;
     }
 
     @PostMapping
