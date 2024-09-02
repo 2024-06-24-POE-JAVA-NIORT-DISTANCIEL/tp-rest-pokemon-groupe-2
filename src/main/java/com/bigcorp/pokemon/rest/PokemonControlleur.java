@@ -27,41 +27,56 @@ public class PokemonControlleur {
     @Autowired
     EspeceService especeService;
 
+
+
     @PostMapping
-    public ResponseEntity<?> createPokemon(@RequestBody Pokemon pokemon) {
-        if (pokemon.getId() != null) {
-            return new ResponseEntity<>("Vous ne pouvez pas spécifier l'ID. La base s'occupe de le créer.", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> createPokemon(@RequestBody PokemonDto pokemon) {
+        try {
+            PokemonDto savedPokemon = pokemonService.save(pokemon);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedPokemon);
+        } catch (Exception e) {
+            // Log l'erreur pour la déboguer plus tard
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("not created");
         }
-
-        if (pokemon.getNiveau() != null || pokemon.getNiveau() != 1) {
-            return new ResponseEntity<>("Le niveau du pokemon doit être à 1.", HttpStatus.BAD_REQUEST);
-        }
-
-        if (pokemon.getXp() != null || pokemon.getXp() != 0) {
-            return new ResponseEntity<>("L'exp' du pokemon doit être à 0.", HttpStatus.BAD_REQUEST);
-        }
-
-        // Ici, getEspece() est une référence à l'ID d'une espece
-        if (pokemon.getEspece() == null) {
-            return new ResponseEntity<>("L'espèce n'a pas été spécifier.", HttpStatus.BAD_REQUEST);
-        }
-        else {
-            EspeceDto especeDto = especeService.findById(pokemon.getEspece().getId());
-
-            if (especeDto == null) {
-                return new ResponseEntity<>("L'espèce avec l'id " + pokemon.getEspece().getId() + " n'existe pas.", HttpStatus.BAD_REQUEST);
-            }
-
-            pokemon.setPv_max(especeDto.getPointsVieInitial());
-        }
-
-        if (pokemon.getPv() != pokemon.getPv_max()) {
-            return new ResponseEntity<>("Les attribuits pv et pv_max doivent être égaux.", HttpStatus.BAD_REQUEST);
-        }
-
-        PokemonDto createdPokemon = pokemonService.save(pokemon);
-        return new ResponseEntity<>(createdPokemon, HttpStatus.CREATED);
     }
+
+
+//    @PostMapping
+//    public ResponseEntity<?> createPokemon(@RequestBody Pokemon pokemon) {
+//        if (pokemon.getId() != null) {
+//            return new ResponseEntity<>("Vous ne pouvez pas spécifier l'ID. La base s'occupe de le créer.", HttpStatus.BAD_REQUEST);
+//        }
+////
+////        if (pokemon.getNiveau() != null || pokemon.getNiveau() != 1) {
+////            return new ResponseEntity<>("Le niveau du pokemon doit être à 1.", HttpStatus.BAD_REQUEST);
+////        }
+////
+////        if (pokemon.getXp() != null || pokemon.getXp() != 0) {
+////            return new ResponseEntity<>("L'exp' du pokemon doit être à 0.", HttpStatus.BAD_REQUEST);
+////        }
+//
+//        // Ici, getEspece() est une référence à l'ID d'une espece
+//        if (pokemon.getEspece() == null) {
+//            return new ResponseEntity<>("L'espèce n'a pas été spécifier.", HttpStatus.BAD_REQUEST);
+//        }
+//        else {
+//            EspeceDto especeDto = especeService.findById(pokemon.getEspece().getId());
+//
+//            if (especeDto == null) {
+//                return new ResponseEntity<>("L'espèce avec l'id " + pokemon.getEspece().getId() + " n'existe pas.", HttpStatus.BAD_REQUEST);
+//            }
+//
+//            pokemon.setPv_max(especeDto.getPointsVieInitial());
+//        }
+//
+//        if (pokemon.getPv() != pokemon.getPv_max()) {
+//            return new ResponseEntity<>("Les attribuits pv et pv_max doivent être égaux.", HttpStatus.BAD_REQUEST);
+//        }
+//
+//        PokemonDto createdPokemon = pokemonService.save(pokemon);
+//        return new ResponseEntity<>(createdPokemon, HttpStatus.CREATED);
+//    }
 
     // Récupérer un Pokémon par son ID
     @GetMapping("/{id}")
