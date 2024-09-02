@@ -1,0 +1,19 @@
+public class AttaqueMapper {
+    public static AttaqueDTO toDto(Attaque attaque) {
+        AttaqueDTO dto = new AttaqueDTO();
+        dto.setid(attaque.getId());
+        dto.setNom(attaque.getNom());
+        dto.setType(attaque.getType());
+        dto.setPointsDegats(attaque.getPointsDegats());
+        return dto;
+    }
+
+    public static Attaque toEntity(AttaqueDTO dto) {
+        Attaque attaque = new Attaque();
+        attaque.setId(dto.getId());
+        attaque.setNom(dto.getNom());
+        attaque.setType(dto.getType());
+        attaque.setPointsDegats(dto.getPointsDegats());
+        return attaque;
+    }
+}
