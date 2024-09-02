@@ -28,7 +28,6 @@ public class PokemonControlleur {
     EspeceService especeService;
 
 
-
     @PostMapping
     public ResponseEntity<?> createPokemon(@RequestBody PokemonDto pokemon) {
         try {
@@ -47,14 +46,14 @@ public class PokemonControlleur {
 //        if (pokemon.getId() != null) {
 //            return new ResponseEntity<>("Vous ne pouvez pas spécifier l'ID. La base s'occupe de le créer.", HttpStatus.BAD_REQUEST);
 //        }
-////
-////        if (pokemon.getNiveau() != null || pokemon.getNiveau() != 1) {
-////            return new ResponseEntity<>("Le niveau du pokemon doit être à 1.", HttpStatus.BAD_REQUEST);
-////        }
-////
-////        if (pokemon.getXp() != null || pokemon.getXp() != 0) {
-////            return new ResponseEntity<>("L'exp' du pokemon doit être à 0.", HttpStatus.BAD_REQUEST);
-////        }
+//
+//        if (pokemon.getNiveau() != null || pokemon.getNiveau() != 1) {
+//            return new ResponseEntity<>("Le niveau du pokemon doit être à 1.", HttpStatus.BAD_REQUEST);
+//        }
+//
+//        if (pokemon.getXp() != null || pokemon.getXp() != 0) {
+//            return new ResponseEntity<>("L'exp' du pokemon doit être à 0.", HttpStatus.BAD_REQUEST);
+//        }
 //
 //        // Ici, getEspece() est une référence à l'ID d'une espece
 //        if (pokemon.getEspece() == null) {
@@ -106,16 +105,9 @@ public class PokemonControlleur {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        pokemonService.delete(id);
 
-        PokemonDto pokemonDto = pokemonService.findById(id);
+        return ResponseEntity.ok("Pokemon supprimé");
 
-        if (pokemonDto == null) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        else {
-            return ResponseEntity.ok("Pokemon supprimé");
-        }
     }
 
     //Faire parler un pokémon
@@ -124,10 +116,34 @@ public class PokemonControlleur {
         String message = discussionPokemonService.faireParlerPokemon(id);
         if (message.startsWith("Le Pokémon avec l'identifiant")) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
-        
+
         }
-        
+
         return ResponseEntity.ok(message);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updatePokemon(
+            @PathVariable Integer id,
+            @RequestBody PokemonDto pokemonDto) {
+        if (pokemonDto.getId() != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Vous ne pouvez pas modifier l'id du pokemon ");
+        }
+
+        try {
+            // Appel du service pour mettre à jour le Pokémon
+            PokemonDto updatedPokemon = pokemonService.updatePokemon(id, pokemonDto);
+
+            // Retourne une réponse avec le Pokémon mis à jour
+            return ResponseEntity.ok(updatedPokemon);
+        } catch (IllegalArgumentException e) {
+            // Si une exception est levée, retourne une réponse 404 Not Found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Gestion générale des erreurs, par exemple en retournant une réponse 500 Internal Server Error
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
 }

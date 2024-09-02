@@ -23,51 +23,94 @@ public class PokemonService {
     @Autowired
     EspeceDao especeDao;
 
-//    public PokemonDto save(Pokemon pokemon){
-//        Pokemon savedPokemon = this.pokemonDao.save(pokemon);
-//        return toDto(savedPokemon);
-//    }
-public PokemonDto save(PokemonDto pokemonDto){
-    if (pokemonDto.getId() != null && !pokemonDao.existsById(pokemonDto.getId())) {
-        throw new IllegalArgumentException("Aucun Pokémon trouvé pour l'identifiant : " + pokemonDto.getId());
+
+    public PokemonDto save(PokemonDto pokemonDto) {
+
+        if (pokemonDto.getId() != null && !pokemonDao.existsById(pokemonDto.getId())) {
+            throw new IllegalArgumentException("Aucun Pokémon trouvé pour l'identifiant : " + pokemonDto.getId());
+        }
+
+        Optional<Espece> espece = especeDao.findById(pokemonDto.getEspeceid());
+
+        if (espece.isEmpty()) {
+            throw new IllegalArgumentException("Aucun especes trouve pour l'id:" + pokemonDto.getEspeceid());
+        }
+
+        // Obtenir l'espèce trouvée
+        Espece especetrouver = espece.get();
+        //convertion DTO en entity
+        Pokemon pokemon = toEntity(pokemonDto, especetrouver);
+
+        // Appliquer les valeurs par défaut et les conditions spécifiées
+        pokemon.setNiveau(1); // Niveau fixe à 1
+        pokemon.setXp(0); // Points d'expérience fixés à 0
+        pokemon.setPv_max(especetrouver.getPointsVieInitial()); // Points de vie maximum de l'espèce
+        pokemon.setPv(pokemon.getPv_max()); // Points de vie actuels égaux aux points de vie maximum
+        //sauvgarder pokemon
+        pokemon = pokemonDao.save(pokemon);
+
+        //convertir l'entité enDTO
+        return toDto(pokemon);
+
     }
-   Optional<Espece> espece=especeDao.findById(pokemonDto.getEspeceid());
+
+    // Méthode de mise à jour d'un Pokémon
+    public PokemonDto updatePokemon(Integer id, PokemonDto pokemonDto) throws IllegalArgumentException {
+        // Vérifier si le Pokémon existe dans la base de données
+        Optional<Pokemon> optionalPokemon = pokemonDao.findById(id);
+        if (!optionalPokemon.isPresent()) {
+            throw new IllegalArgumentException("Aucun Pokémon trouvé pour l'identifiant : " + id);
+        }
+
+        // Obtenir l'entité Pokémon existante
+        Pokemon existingPokemon = optionalPokemon.get();
+        if (pokemonDto.getEspeceid() != null) {
+            Optional<Espece> espece = especeDao.findById(pokemonDto.getEspeceid());
+            if (espece.isEmpty()) {
+                throw new IllegalArgumentException("Aucune espèce trouvée pour l'identifiant : " + pokemonDto.getEspeceid());
+            }
+            existingPokemon.setEspece(espece.get());
+            existingPokemon.setPv_max(espece.get().getPointsVieInitial());
+        }
 
 
-   if(espece.isEmpty()){
-       throw  new IllegalArgumentException("Aucun especes trouve pour l'id:"+pokemonDto.getEspeceid());
-   }
+        // Mettre à jour les champs nécessaires
+        if (pokemonDto.getNom() != null) {
+            existingPokemon.setNom(pokemonDto.getNom());
+        }
+        if (pokemonDto.getNiveau() != null) {
+            existingPokemon.setNiveau(pokemonDto.getNiveau());
+        }
+        if (pokemonDto.getXp() != null) {
+            existingPokemon.setXp(pokemonDto.getXp());
+        }
+        if (pokemonDto.getPv() != null) {
+            existingPokemon.setPv(pokemonDto.getPv());
+        }
 
-    // Obtenir l'espèce trouvée
-    Espece especetrouver =espece.get();
-    //convertion DTO en entity
-    Pokemon pokemon=toEntity(pokemonDto,especetrouver);
 
-    // Appliquer les valeurs par défaut et les conditions spécifiées
-    pokemon.setNiveau(1); // Niveau fixe à 1
-    pokemon.setXp(0); // Points d'expérience fixés à 0
-    pokemon.setPv_max(especetrouver.getPointsVieInitial()); // Points de vie maximum de l'espèce
-    pokemon.setPv(pokemon.getPv_max()); // Points de vie actuels égaux aux points de vie maximum
-    //sauvgarder pokemon
-    pokemon=pokemonDao.save(pokemon);
 
-    //convertir l'entité enDTO
-    return toDto(pokemon);
 
-}
 
-    public PokemonDto findById(Integer id){
+        // Sauvegarder les modifications
+        Pokemon updatedPokemon = pokemonDao.save(existingPokemon);
+
+        // Retourner le DTO mis à jour
+        return toDto(updatedPokemon);
+    }
+
+    public PokemonDto findById(Integer id) {
         Optional<Pokemon> optionalPokemon = this.pokemonDao.findById(id);
         return toDto(optionalPokemon.orElse(null));
     }
 
     @Transactional
     public boolean delete(Integer id) {
-        Optional<Pokemon> pokemonInDb = pokemonDao.findById(id);
+        boolean pokemonInDb = pokemonDao.existsById(id);
 
         // Test si le pokemon n'est pas présent en base
         // Le ! inverse la condition. On regarde donc ici si la condition est fausse
-        if (!pokemonInDb.isPresent()) {
+        if (!pokemonInDb) {
             return false;
         }
 
@@ -84,7 +127,7 @@ public PokemonDto save(PokemonDto pokemonDto){
         if (pokemon == null) {
             return null;
         }
- 
+
         PokemonDto pokemonDto = new PokemonDto();
 
         pokemonDto.setId(pokemon.getId());
@@ -100,12 +143,14 @@ public PokemonDto save(PokemonDto pokemonDto){
 
         return pokemonDto;
     }
+
     /**
      * Convertit un DTO en entité.
+     *
      * @param dto le DTO
      * @return l'entité resevation correspondante
      */
-    private Pokemon toEntity(PokemonDto dto,Espece espece) {
+    private Pokemon toEntity(PokemonDto dto, Espece espece) {
         if (dto == null) {
             return null;
         }
@@ -118,6 +163,7 @@ public PokemonDto save(PokemonDto pokemonDto){
         pokemon.setPv(dto.getPv());
         pokemon.setPv_max(dto.getPv_max());
         pokemon.setEspece(espece);
+
 
         return pokemon;
     }

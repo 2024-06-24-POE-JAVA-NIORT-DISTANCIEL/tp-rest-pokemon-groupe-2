@@ -20,7 +20,7 @@ public class PokemonDto {
 
     public int pv_max;
 
-    @NotNull
+//    @NotNull
     private Integer especeid;
 
     //les donnees de Espece
