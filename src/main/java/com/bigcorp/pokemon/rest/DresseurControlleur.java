@@ -2,20 +2,19 @@ package com.bigcorp.pokemon.rest;
 
 import java.util.List;
 
+import com.bigcorp.pokemon.dto.ObjetDto;
+import com.bigcorp.pokemon.model.Achat;
+import com.bigcorp.pokemon.model.Objet;
+import com.bigcorp.pokemon.service.AchatService;
+import com.bigcorp.pokemon.service.ObjetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.bigcorp.pokemon.dto.DresseurDto;
 import com.bigcorp.pokemon.model.Dresseur;
 import com.bigcorp.pokemon.service.DresseurService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -23,6 +22,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class DresseurControlleur {
     @Autowired
     DresseurService dresseurService;
+
+    @Autowired
+    AchatService achatService;
+
+    @Autowired
+    ObjetService objetService;
 
     // La variable si dessous est une regex qui vérifie si l'id est un nombre entre 0 et 9 ([0-9])
     // en sachant que l'on peut rencontrer 1 à n fois (*).
@@ -92,5 +97,20 @@ public class DresseurControlleur {
         else {
             return ResponseEntity.status(HttpStatus.OK).body("Le dresseur a bien été supprimé.");
         }
+
+    }
+
+    @PutMapping("/achat/{dresseurId}/{objetId}")
+    public ResponseEntity<?> acheterObjet(@PathVariable Integer dresseurId, @PathVariable Integer objetId) {
+        DresseurDto dresseurDto = dresseurService.getById(dresseurId);
+        if (dresseurDto == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("le dresseur avec l'id fourni n'a pas été trouvé");
+        }
+        ObjetDto objetDto = objetService.findById(objetId);
+        if (objetDto == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("l'objet avec l'id fourni n'a pas été trouvé");
+        }
+        Achat result = achatService.acheterObjet(dresseurDto, objetDto);
+        return ResponseEntity.ok(result);
     }
 }

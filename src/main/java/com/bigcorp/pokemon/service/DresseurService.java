@@ -76,4 +76,21 @@ public class DresseurService {
 
         return dresseursDto;
     }
+
+    //Pour convertir de DTO > Entitée
+    public Dresseur toEntity(DresseurDto dresseurDto) {
+        if (dresseurDto == null) {
+            return null;
+        }
+        Dresseur dresseur = new Dresseur();
+
+        dresseur.setId(dresseurDto.getId());
+        dresseur.setPseudonyme(dresseurDto.getPseudonyme());
+        dresseur.setMotDePasse(dresseurDto.getMotDePasse());
+        dresseur.setPortefeuille(dresseurDto.getPortefeuille());
+        dresseur.setEquipe(dresseurDto.getEquipe());
+        dresseur.setInventaire(dresseurDto.getInventaire());
+
+        return dresseur;
+    }
 }
