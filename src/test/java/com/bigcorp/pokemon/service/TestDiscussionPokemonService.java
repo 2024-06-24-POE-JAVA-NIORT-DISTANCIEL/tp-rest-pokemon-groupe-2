@@ -31,13 +31,21 @@ public class TestDiscussionPokemonService {
         // Sauvegarde le nouveau Pokémon dans la base de données
         Pokemon savedPokemon = pokemonDao.save(newPokemon);
 
-        // Appel le service de soin pour soigner le Pokémon
-        String result = discussionPokemonService.faireParlerPokemon(savedPokemon.getId());
+        // Appel le service pour faire parler le Pokémon
+        String message = discussionPokemonService.faireParlerPokemon(savedPokemon.getId());
 
-        // Récupére le Pokémon mis à jour de la base de données
-        Pokemon aguerrirPokemon = pokemonDao.findById(savedPokemon.getId()).orElse(null);
+        // Vérifie que le message contient le nom du Pokémon entre 1 et 3 fois
+        //Utiiisation du régex :
+        // ^ : indique le début de la chaîne
+        //() : défini un groupe capturant
+        // Goupix ? : le groupe capturant, soit la chaîne de charactère Goupix + l'espace qui suit après (la signigication du  ?)
+        // {1,3} : le quantificateur qui indique le groupe capturant doit apparaitre au moins 1X et au plus 3X
+        // [] : défini une classe de caractères qui correspond à un caractère parmi ceux spécifiés
+        //[.!?] : correspond à un seul caractère qui peut être soit un point (.), un point d'exclamation (!), ou un point d'interrogation (?)
+        // $ : Fin de la chaîne
+        Assertions.assertTrue(message.matches("^(Goupix ?){1,3}[.!?]$"),
+                "Le message doit contenir le nom du Pokémon 'Goupix' répété 1 à 3 fois, suivi d'une ponctuation.");
 
-        // Vérifie que le Pokémon existe
-        Assertions.assertNotNull(aguerrirPokemon, "Le Pokémon doit être présent dans la base de données.");
+        System.out.println("Message généré: " + message);
     }
 }
