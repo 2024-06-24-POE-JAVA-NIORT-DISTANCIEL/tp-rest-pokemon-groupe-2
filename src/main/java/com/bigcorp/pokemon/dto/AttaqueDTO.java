@@ -8,6 +8,8 @@ public class AttaqueDTO {
     private String nom;
     private Type type;
     private Integer pointsDegats;
+
+    
     public Integer getId() {
         return id;
     }
