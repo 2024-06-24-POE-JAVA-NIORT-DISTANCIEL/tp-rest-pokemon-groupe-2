@@ -5,6 +5,7 @@ import java.util.List;
 import com.bigcorp.pokemon.model.Capacite;
 import com.bigcorp.pokemon.model.Dresseur;
 import com.bigcorp.pokemon.model.Espece;
+import org.antlr.v4.runtime.misc.NotNull;
 
 public class PokemonDto {
     private Integer id;
@@ -19,7 +20,13 @@ public class PokemonDto {
 
     public int pv_max;
 
-    private Espece espece;
+    @NotNull
+    private Integer especeid;
+
+    //les donnees de Espece
+    private String nomespece;
+
+    private int pointsVieInitial;
 
     private Dresseur dresseur;
 
@@ -73,12 +80,37 @@ public class PokemonDto {
         this.pv_max = pv_max;
     }
 
-    public Espece getEspece() {
-        return espece;
+//    public Espece getEspece() {
+//        return espece;
+//    }
+//
+//    public void setEspece(Espece espece) {
+//        this.espece = espece;
+//    }
+
+
+    public Integer getEspeceid() {
+        return especeid;
     }
 
-    public void setEspece(Espece espece) {
-        this.espece = espece;
+    public void setEspeceid(Integer especeid) {
+        this.especeid = especeid;
+    }
+
+    public String getNomespece() {
+        return nomespece;
+    }
+
+    public void setNomespece(String nomespece) {
+        this.nomespece = nomespece;
+    }
+
+    public int getPointsVieInitial() {
+        return pointsVieInitial;
+    }
+
+    public void setPointsVieInitial(int pointsVieInitial) {
+        this.pointsVieInitial = pointsVieInitial;
     }
 
     public Dresseur getDresseur() {

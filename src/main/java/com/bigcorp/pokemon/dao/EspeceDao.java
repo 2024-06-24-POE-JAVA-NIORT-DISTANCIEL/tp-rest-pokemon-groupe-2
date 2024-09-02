@@ -5,6 +5,7 @@ import com.bigcorp.pokemon.model.Pokemon;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EspeceDao extends CrudRepository<Espece,Integer> {
 
@@ -17,5 +18,8 @@ public interface EspeceDao extends CrudRepository<Espece,Integer> {
      * Recherche tous les pokemons par leur nompar , en ne tenant pas compte de la casse
      */
     public List<Espece> findByNomIgnoreCase(String nom);
+
+
+
 
 }
