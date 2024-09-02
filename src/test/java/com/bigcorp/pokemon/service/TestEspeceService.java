@@ -1,6 +1,7 @@
 package com.bigcorp.pokemon.service;
 
 import com.bigcorp.pokemon.dao.EspeceDao;
+import com.bigcorp.pokemon.dto.EspeceDto;
 import com.bigcorp.pokemon.model.Espece;
 import com.bigcorp.pokemon.model.Type;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-/* 
+
 @SpringBootTest
 public class TestEspeceService {
 
@@ -49,20 +50,19 @@ public class TestEspeceService {
         especeService.save(e1);
         especeService.save(e2);
 
-        List<Espece> especes = especeService.getAllEspeces();
+        List<EspeceDto> especes = especeService.getAllEspeces();
         Assertions.assertEquals(2, especes.size());
     }
 
     @Test
     public void testDeleteEspece() {
         Espece espece = new Espece(null, "Carapuce", 85, 85, Type.EAU);
-        Espece savedEspece = especeService.save(espece);
+        EspeceDto savedEspece = especeService.save(espece);
 
         //Suppression à partir de son Id
         especeService.delete(savedEspece.getId());
 
-        Espece deletedEspece = especeService.findById(savedEspece.getId());
+        EspeceDto deletedEspece = especeService.findById(savedEspece.getId());
         Assertions.assertNull(deletedEspece);
     }
 }
-*/
