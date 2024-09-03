@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.bigcorp.pokemon.dto.DresseurDto;
+import com.bigcorp.pokemon.model.Dresseur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,7 +72,7 @@ public class ObjetService {
         return objetDto;
     }
 
-    private List<ObjetDto> toDtoList(List<Objet> objets) {
+    public List<ObjetDto> toDtoList(List<Objet> objets) {
         List<ObjetDto> objetsDto = new ArrayList<>();
 
         for (Objet objet : objets) {
@@ -79,5 +81,21 @@ public class ObjetService {
         }
 
         return objetsDto;
+    }
+
+    //Pour convertir de DTO > Entitée
+    public Objet toEntity(ObjetDto objetDto) {
+        if (objetDto == null) {
+            return null;
+        }
+        Objet objet = new Objet();
+
+        objet.setId(objetDto.getId());
+        objet.setNom(objetDto.getNom());
+        objet.setCout(objetDto.getCout());
+        objet.setType(objetDto.getType());
+        objet.setAchats(objetDto.getAchats());
+
+        return objet;
     }
 }

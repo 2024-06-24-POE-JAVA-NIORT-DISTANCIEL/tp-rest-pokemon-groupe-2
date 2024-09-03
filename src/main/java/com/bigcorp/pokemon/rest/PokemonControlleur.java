@@ -7,6 +7,7 @@ import com.bigcorp.pokemon.service.DiscussionPokemonService;
 import com.bigcorp.pokemon.service.EspeceService;
 import com.bigcorp.pokemon.service.PokemonService;
 
+import com.bigcorp.pokemon.service.SoinPokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,9 @@ public class PokemonControlleur {
 
     @Autowired
     EspeceService especeService;
+
+    @Autowired
+    SoinPokemonService soinPokemonService;
 
 
 
@@ -116,6 +120,12 @@ public class PokemonControlleur {
         else {
             return ResponseEntity.ok("Pokemon supprimé");
         }
+    }
+
+    @PutMapping("/{id}/soin")
+    public ResponseEntity<String> soinPokemon(@PathVariable Integer id) {
+        String result = soinPokemonService.soignerPokemon(id);
+        return ResponseEntity.ok(result);
     }
 
     //Faire parler un pokémon
