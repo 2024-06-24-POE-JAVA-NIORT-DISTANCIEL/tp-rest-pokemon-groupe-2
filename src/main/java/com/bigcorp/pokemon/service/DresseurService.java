@@ -53,6 +53,7 @@ public class DresseurService {
         dresseurDao.delete(dresseurInDb.get());
     }
 
+    // Entitée > DTO
     private DresseurDto toDto(Dresseur dresseur) {
         if (dresseur == null) {
             return null;

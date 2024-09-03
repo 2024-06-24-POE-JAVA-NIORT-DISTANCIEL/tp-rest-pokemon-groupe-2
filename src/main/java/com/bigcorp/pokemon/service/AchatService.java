@@ -50,6 +50,9 @@ public class AchatService {
         }
 
         // Décrémente le portefeuille du dresseur
+        if(dresseur.getPortefeuille() - objetDto.getCout() < 0){
+            return null;
+        }
         dresseur.setPortefeuille(dresseur.getPortefeuille() - objetDto.getCout());
 
         //conversion objetDto > objet
