@@ -31,53 +31,45 @@ public class AchatService {
     @Autowired
     ObjetService objetService;
 
-    @Autowired
-    DresseurService dresseurService;
-
     @Transactional
     public Achat acheterObjet(DresseurDto dresseurDto, ObjetDto objetDto){
 
+        //On vérifie que les dresseurs et les objets sont bien là
         if (dresseurDto == null && objetDto == null){
             return null;
         }
 
-        // Crée l'achat
-        AchatDto achatDto = new AchatDto();
-
+        Optional<Dresseur> optionalDresseur  = dresseurDao.findById(dresseurDto.getId());
+        if(optionalDresseur.isEmpty()){
+            return null;
+        }
+        Dresseur dresseur = optionalDresseur.get();
         //On vérifie que le portefeuille et l'objet ne sont pas null
-        if (dresseurDto.getPortefeuille() == null || objetDto.getCout() == null){
+        if (dresseur.getPortefeuille() == null || objetDto.getCout() == null){
             return null;
         }
 
         // Décrémente le portefeuille du dresseur
-        dresseurDto.setPortefeuille(dresseurDto.getPortefeuille() - objetDto.getCout());
-
-        //conversion dresseurDto > dresseur
-        Dresseur dresseurDtoToEntity = dresseurService.toEntity(dresseurDto);
-        achatDto.setDresseurId(dresseurDtoToEntity.getId());
+        dresseur.setPortefeuille(dresseur.getPortefeuille() - objetDto.getCout());
 
         //conversion objetDto > objet
         Objet objetDtoToEntity = objetService.toEntity(objetDto);
+
+        // Crée l'achat
+        AchatDto achatDto = new AchatDto();
+        achatDto.setDresseurId(dresseur.getId());
         achatDto.setObjetId(objetDtoToEntity.getId());
 
         //conversion achatDto > achat
-        Achat achatDtoToEntity = toEntity(achatDto, dresseurDtoToEntity, objetDtoToEntity);
+        Achat achatDtoToEntity = toEntity(achatDto, dresseur, objetDtoToEntity);
 
         //sauvegarde un achat et on le converti en DTO
-        AchatDto savedAchatDto = toDto(achatDao.save(achatDtoToEntity)); // Sauvegarde l'achat
+        Achat savedAchat = achatDao.save(achatDtoToEntity); // Sauvegarde l'achat
 
-        //récupération de l'inventaire du dresseurDto
-        List<Achat> inventaire = dresseurDto.getInventaire();
+        dresseur.getInventaire().add(savedAchat);
+        dresseurDao.save(dresseur);
 
-        //conversion de liste d'achat en liste d'achatDto
-        List<AchatDto> inventaireDto = toDtoList(inventaire); //récupération de la liste  des achats
-
-        inventaire.add(achatDtoToEntity); // on lui rajoute l'achat save
-        dresseurDto.setInventaire(inventaire); // mise à jour de l'inventaire
-
-        dresseurDao.save(dresseurDtoToEntity); // Sauvegarde le dresseur mis à jour
-
-        return achatDtoToEntity;
+        return savedAchat;
     }
 
     private AchatDto toDto(Achat achat) {

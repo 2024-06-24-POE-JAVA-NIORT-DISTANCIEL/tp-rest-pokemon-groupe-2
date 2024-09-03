@@ -2,6 +2,7 @@ package com.bigcorp.pokemon.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,11 +20,11 @@ public class Dresseur {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "pokemonId")
-    private List<Pokemon> equipe;
+    private List<Pokemon> equipe = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "achatId")
-    private List<Achat> inventaire;
+    private List<Achat> inventaire = new ArrayList<>();
 
     public Integer getId() {
         return id;

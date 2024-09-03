@@ -4,6 +4,8 @@ import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bigcorp.pokemon.dto.AchatDto;
+import com.bigcorp.pokemon.model.Achat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ import jakarta.transaction.Transactional;
 public class DresseurService {
     @Autowired
     private DresseurDao dresseurDao;
+    @Autowired
+    private AchatService  achatService;
 
     public DresseurDto save(Dresseur dresseur) {
         Dresseur dresseurSaved = dresseurDao.save(dresseur);
@@ -61,7 +65,7 @@ public class DresseurService {
         dresseurDto.setMotDePasse(dresseur.getMotDePasse());
         dresseurDto.setPortefeuille(dresseur.getPortefeuille());
         dresseurDto.setEquipe(dresseur.getEquipe());
-        dresseurDto.setInventaire(dresseur.getInventaire());
+        dresseurDto.setInventaire(achatService.toDtoList(dresseur.getInventaire()));
 
         return dresseurDto;
     }
@@ -89,7 +93,12 @@ public class DresseurService {
         dresseur.setMotDePasse(dresseurDto.getMotDePasse());
         dresseur.setPortefeuille(dresseurDto.getPortefeuille());
         dresseur.setEquipe(dresseurDto.getEquipe());
-        dresseur.setInventaire(dresseurDto.getInventaire());
+        List<Achat>  nouvelInventaire = new ArrayList<>();
+        for(AchatDto achatDto : dresseurDto.getInventaire()){
+            Achat achat = achatService.toEntity(achatDto, dresseur, null);
+            nouvelInventaire.add(achat);
+        }
+        dresseur.setInventaire(nouvelInventaire);
 
         return dresseur;
     }

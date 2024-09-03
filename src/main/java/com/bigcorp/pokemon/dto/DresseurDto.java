@@ -16,7 +16,7 @@ public class DresseurDto {
 
     private List<Pokemon> equipe;
 
-    private List<Achat> inventaire;
+    private List<AchatDto> inventaire;
 
     public Integer getId() {
         return id;
@@ -58,11 +58,11 @@ public class DresseurDto {
         this.equipe = equipe;
     }
 
-    public List<Achat> getInventaire() {
+    public List<AchatDto> getInventaire() {
         return inventaire;
     }
 
-    public void setInventaire(List<Achat> inventaire) {
+    public void setInventaire(List<AchatDto> inventaire) {
         this.inventaire = inventaire;
     }
 
