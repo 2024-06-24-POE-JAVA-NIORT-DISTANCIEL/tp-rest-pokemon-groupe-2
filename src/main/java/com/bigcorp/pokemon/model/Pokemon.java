@@ -12,7 +12,7 @@ public class Pokemon {
     private Integer id;
 
     private String nom;
-    private Integer niveau;//comment fait default 1
+    private Integer niveau;
     private Integer xp;
     private Integer pv;
     public int pv_max;
